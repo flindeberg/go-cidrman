@@ -151,6 +151,36 @@ func TestMergeCIDRs(t *testing.T) {
 			},
 			Error: false,
 		},
+		{
+			Input: []string{
+				"1.2.3.4/16",
+				"1.2.3.5/16",
+			},
+			Output: []string{
+				"1.2.0.0/16",
+			},
+			Error: false,
+		},
+		{
+			Input: []string{
+				"1.2.3.4/32",
+				"1.2.3.4/32",
+			},
+			Output: []string{
+				"1.2.3.4/32",
+			},
+			Error: false,
+		},
+		{
+			Input: []string{
+				"1.2.3.4/32",
+				"1.2.3.4/24",
+			},
+			Output: []string{
+				"1.2.3.0/24",
+			},
+			Error: false,
+		},
 	}
 
 	for _, testCase := range testCases {
