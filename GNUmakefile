@@ -1,5 +1,7 @@
 TEST?=./...
-GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
+GOFMT_FILES?=$$(find . -type f -name '*.go' | grep -v 'vendor/')
+# Set PKG_NAME when the real package is in a subdir
+#PKG_NAME=packagename
 
 default: build
 
