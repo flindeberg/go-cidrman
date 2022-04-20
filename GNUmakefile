@@ -1,5 +1,7 @@
-TEST?=$$(go list ./... | grep -v 'vendor')
-GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
+TEST?=./...
+GOFMT_FILES?=$$(find . -type f -name '*.go' | grep -v 'vendor/')
+# Set PKG_NAME when the real package is in a subdir
+#PKG_NAME=packagename
 
 default: build
 
@@ -7,11 +9,10 @@ build:
 	go install
 
 test:
-	go test -i $(TEST) || exit 1
-	echo $(TEST) | \
-		xargs -t -n4 go test $(TESTARGS) -timeout=30s -parallel=4
+	go test $(TEST) -timeout=30s -parallel=4
 
 fmt:
-	gofmt -w $(GOFMT_FILES)
+	@echo "==> Fixing source code with gofmt..."
+	gofmt -s -w ./$(PKG_NAME)
 
 .PHONY: build test fmt
