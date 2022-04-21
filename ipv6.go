@@ -18,7 +18,10 @@ func ipv6ToUInt128(ip net.IP) *big.Int {
 
 // uint128ToIPV6 converts an unsigned 128-bit integer to an IPv6 address.
 func uint128ToIPV6(addr *big.Int) net.IP {
-	return net.IP(addr.Bytes()).To16()
+	ip := make([]byte, net.IPv6len)
+	ab := addr.Bytes()
+	copy(ip[len(ip)-len(ab):], ab)
+	return ip
 }
 
 // copyUInt128 copies an unsigned 128-bit integer.
@@ -74,7 +77,7 @@ func splitRange6(addr *big.Int, prefix uint, lo, hi *big.Int, cidrs *[]*net.IPNe
 	}
 
 	bc := broadcast6(addr, prefix)
-	fmt.Printf("%v/%v, %v-%v, %v\n", uint128ToIPV6(addr), prefix, uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(bc))
+//	fmt.Printf("%v/%v, %v-%v, %v\n", uint128ToIPV6(addr), prefix, uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(bc))
 	if (lo.Cmp(addr) < 0) || (hi.Cmp(bc) > 0) {
 		return fmt.Errorf("%v, %v out of range for network %v/%d, broadcast %v", uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(addr), prefix, uint128ToIPV6(bc))
 	}
