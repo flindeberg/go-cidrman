@@ -77,7 +77,7 @@ func splitRange6(addr *big.Int, prefix uint, lo, hi *big.Int, cidrs *[]*net.IPNe
 	}
 
 	bc := broadcast6(addr, prefix)
-//	fmt.Printf("%v/%v, %v-%v, %v\n", uint128ToIPV6(addr), prefix, uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(bc))
+	//	fmt.Printf("%v/%v, %v-%v, %v\n", uint128ToIPV6(addr), prefix, uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(bc))
 	if (lo.Cmp(addr) < 0) || (hi.Cmp(bc) > 0) {
 		return fmt.Errorf("%v, %v out of range for network %v/%d, broadcast %v", uint128ToIPV6(lo), uint128ToIPV6(hi), uint128ToIPV6(addr), prefix, uint128ToIPV6(bc))
 	}
@@ -91,7 +91,7 @@ func splitRange6(addr *big.Int, prefix uint, lo, hi *big.Int, cidrs *[]*net.IPNe
 	prefix++
 	lowerHalf := copyUInt128(addr)
 	upperHalf := copyUInt128(addr)
-	upperHalf.SetBit(upperHalf, int(widthUInt128 - prefix), 1)
+	upperHalf.SetBit(upperHalf, int(widthUInt128-prefix), 1)
 	if hi.Cmp(upperHalf) < 0 {
 		return splitRange6(lowerHalf, prefix, lo, hi, cidrs)
 	} else if lo.Cmp(upperHalf) >= 0 {
