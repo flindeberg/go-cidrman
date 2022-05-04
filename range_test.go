@@ -136,7 +136,22 @@ func TestIPRangeToCIDRs(t *testing.T) {
 			Lo: "0000:0000:0000:0000:0000:0000:0000:0000",
 			Hi: "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
 			Output: []string{
-				"0000:0000:0000:0000:0000:0000:0000:0000/0",
+				"::/0",
+			},
+			Error: false,
+		},
+		{
+			Lo:     "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+			Hi:     "ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffd",
+			Output: nil,
+			Error:  true,
+		},
+		{
+			Lo: "ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffd",
+			Hi: "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+			Output: []string{
+				"ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffd/128",
+				"ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe/127",
 			},
 			Error: false,
 		},
@@ -144,7 +159,7 @@ func TestIPRangeToCIDRs(t *testing.T) {
 			Lo: "2001:0db8:0000:0000:0000:ff00:0042:8328",
 			Hi: "2001:0db8:0000:0000:0000:ff00:0042:8328",
 			Output: []string{
-				"2001:0db8:0000:0000:0000:ff00:0042:8328/128",
+				"2001:db8::ff00:42:8328/128",
 			},
 			Error: false,
 		},
@@ -156,6 +171,7 @@ func TestIPRangeToCIDRs(t *testing.T) {
 			if !testCase.Error {
 				t.Errorf("IPRangeToCIDRs(%s, %s) failed: %s", testCase.Lo, testCase.Hi, err.Error())
 			}
+			continue
 		}
 		if !reflect.DeepEqual(testCase.Output, output) {
 			t.Errorf("IPRangeToCIDRs(%s, %s) expected: %#v, got: %#v", testCase.Lo, testCase.Hi, testCase.Output, output)
