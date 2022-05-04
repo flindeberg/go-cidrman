@@ -37,8 +37,24 @@ $ cd $HOME/git/GitHub/Netnod/go-cidrman/
 $ make test
 ```
 
-# Findings about the original project
+# Project status and progress
 
-A lot of work was done in the `ipv6-experimental` branch, 18 months later some of the *metafiles* was updated in the `master` branch.
+## Findings about the original project
+
+A lot of work was done in the `ipv6-experimental` branch back in Feb and Dec 2017.
+In June 2019 some of the *metafiles* was created or updated in the `master` branch, without changes to the code it self.
 
 The continued work in this fork will merge the work done in the `ipv6-experimental` alongside new development.
+
+## Where are we now?
+
+IPv6 merge support has been in the `main` branch since Mar 2022.
+The `ipv6-additions` branch was created to create a **PR** into the original project for the IPv6 merge support.
+
+As of Apr 2022 the `merge-experimental` branch was used to merge the old work in `ipv6-experimental`
+with the new stuff in `main`. At that point `ipv6-experimental` was removed as it's not relevant in this fork any more.
+
+## Upcoming
+
+Inital work on new `removeCIDRs` fucntions to be able to remove/exclude CIDR blocks or IP ranges. As of Apr 2022 the
+internal code supports IPv4. Next step will be IPv6 support.
