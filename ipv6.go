@@ -163,8 +163,8 @@ func merge6(blocks cidrBlock6s) ([]*net.IPNet, error) {
 
 	// Coalesce overlapping blocks.
 	for i := len(blocks) - 1; i > 0; i-- {
-		cmp := blocks[i-1].last
-		cmp.Add(cmp, big.NewInt(1))
+		cmp := big.NewInt(1)
+		cmp.Add(cmp, blocks[i-1].last)
 		if blocks[i].first.Cmp(cmp) <= 0 {
 			blocks[i-1].last = blocks[i].last
 			if blocks[i].first.Cmp(blocks[i-1].first) < 0 {
