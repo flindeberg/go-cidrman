@@ -106,6 +106,10 @@ func RemoveCIDRs(cidrs, removes []string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Handle the situation where all cidrs were removed
+	if len(newNets) == 0 {
+		return make([]string, 0), nil
+	}
 
 	return ipNets(newNets).toCIDRs(), nil
 }
