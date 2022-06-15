@@ -60,14 +60,13 @@ func RemoveIPNets(nets, rmnets []*net.IPNet) ([]*net.IPNet, error) {
 		return nil, err
 	}
 
-//	new6s, err := remove6(block6s, remove6s)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	merged := append(new4s, new6s...)
-//	return merged, nil
-	return new4s, nil
+	new6s, err := remove6(block6s, remove6s)
+	if err != nil {
+		return nil, err
+	}
+
+	merged := append(new4s, new6s...)
+	return merged, nil
 }
 
 // RemoveCIDRs accepts two lists of mixed CIDR blocks and removes the second list from the first and return new a list of CIDRs.

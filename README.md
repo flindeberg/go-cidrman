@@ -65,9 +65,8 @@ together with the IPv6 support developed in this fork.
 With IPv6 support now in `main`, the `ipv6-experimental` branch was removed as it's no longer relevant in this fork.
 
 
-Initial work has begun with new `removeCIDRs` functions to be able to remove/exclude CIDR blocks or IP ranges.
-As of April 2022, the internal code supports IPv4.
+New `removeCIDRs` functions to be able to remove/exclude CIDR blocks or IP ranges was added in June 2022.
 
-## Upcoming
+## The future
 
-IPv6 support in remove.go
+For the time being, all needed features have been added to support Netnod's internal development needs.
